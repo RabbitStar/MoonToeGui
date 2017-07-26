@@ -53,8 +53,8 @@ def gameover(state):
             if state[i][j] == 0:
                 total_zero+=1
             ct[state[i][j]]+=1
-            # print i,j,state[i][j],ct[state[i][j]]
             if state[i][j] != 0 and ct[state[i][j]] == LINE_SIZE:
+                print 'h',i,j,state[i][j],ct[state[i][j]]
                 return state[i][j]
             ct[state[i][j-LINE_SIZE+1]]-=1
 
@@ -66,8 +66,9 @@ def gameover(state):
         for i in range(LINE_SIZE-1,BOARD_SIZE):
             ct[state[i][j]]+=1
             if state[i][j] != 0 and ct[state[i][j]] == LINE_SIZE:
+                print 'v',i,j,state[i][j],ct[state[i][j]]
                 return state[i][j]
-            ct[state[i][j-LINE_SIZE+1]]-=1
+            ct[state[i-LINE_SIZE+1][j]]-=1
 
     # Diagonal winning
     for i in range(BOARD_SIZE):
@@ -82,8 +83,10 @@ def gameover(state):
                 if inside(x,y):
                     ct2[state[x][y]]+=1
             if ct1[1] == LINE_SIZE or ct2[1] == LINE_SIZE:
+                print 'd',i,j,state[i][j],ct[state[i][j]]
                 return 1
             elif ct1[-1] == LINE_SIZE or ct2[-1] == LINE_SIZE:
+                print 'd2',i,j,state[i][j],ct[state[i][j]]
                 return -1
 
     if total_zero == 0:
@@ -121,7 +124,7 @@ class Agent(object):
             key = (c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)],c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)])
         else:
             key = (c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)], c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)])
-        return math.log(key[0]+1)+math.sqrt(key[1])+key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+math.sqrt(key[6])+3*key[7]+(4*key[8])**2)
+        return math.log(key[0]+1)+3*math.sqrt(key[1])+2*key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+3*math.sqrt(key[6])+4*key[7]+(4*key[8])**2)
 
     def random_greedy(self,state):
         maxval = -999999999

@@ -37,6 +37,7 @@ def move():
 
     # print board,player,computer
     winner = gameover(state)
+    print("check here",winner)
     # Check if player won
     if winner == 2:
         return jsonify(tied = True, computer_wins = False, player_wins = False, board = board)
@@ -50,6 +51,7 @@ def move():
     state[computer_move[0]][computer_move[1]] = -1
     winner = gameover(state)
 
+    print("check comp",winner)
     # Check if computer won
     if winner == 2:
         return jsonify(computer_row = computer_move[0], computer_col = computer_move[1],

@@ -33,7 +33,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
                 $scope.game_over = true;
                 return;
             }
-
+            console.log($scope.inactive,$scope.loading,$scope.new_game,$scope.game_over,winner);
             $scope.inactive = true;
             $scope.loading = true;
             $http.post('/move', { player: 'X', computer: 'O', board: $scope.board }).then(function(response) {
