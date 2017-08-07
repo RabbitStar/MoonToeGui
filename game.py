@@ -124,7 +124,7 @@ class Agent(object):
             key = (c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)],c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)])
         else:
             key = (c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)], c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)])
-        return math.log(key[0]+1)+3*math.sqrt(key[1])+2*key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+3*math.sqrt(key[6])+4*key[7]+(4*key[8])**2)
+        return math.log(key[0]+1)+3*math.sqrt(key[1])+2*key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+3*math.sqrt(key[6])+4*key[7]+(5*key[8])**2)
 
     def random_greedy(self,state):
         maxval = -999999999
