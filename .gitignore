@@ -9,6 +9,10 @@ __pycache__/
 # ignore .idea file
 .idea/
 
+# ignore python pickle files
+*.pickle
+*.p
+
 # Distribution / packaging
 .Python
 env/

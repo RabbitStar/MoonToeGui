@@ -5,10 +5,26 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
     $scope.loading = false;
     $scope.new_game = true;
     $scope.game_over = false;
+    $scope.chance = true;
     $scope.message = '';
     $scope.winning = [[], [], [], [], [], [], [], [] ,[] ,[]];
     $scope.score_player = 0;
     $scope.score_computer = 0;
+
+    $scope.blank_board = [
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    ];
+
+    $scope.board = angular.copy($scope.blank_board);
 
     $scope.click = function(row, col) {
         // Do nothing if the game is over
@@ -36,7 +52,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
             console.log($scope.inactive,$scope.loading,$scope.new_game,$scope.game_over,winner);
             $scope.inactive = true;
             $scope.loading = true;
-            $http.post('/move', { player: 'X', computer: 'O', board: $scope.board }).then(function(response) {
+            $http.post('/move', { player: 'X', computer: 'O', board: $scope.board, chance: $scope.chance}).then(function(response) {
                 $scope.loading = false;
 
                 if (response.data.hasOwnProperty('computer_row') && response.data.hasOwnProperty('computer_col')) {
@@ -62,21 +78,6 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         }
     };
 
-    $scope.blank_board = [
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-    ];
-
-    $scope.board = angular.copy($scope.blank_board);
-
     $scope.inactive = false;
 
     $scope.restart = function() {
@@ -86,17 +87,21 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
         $scope.message = '';
         $scope.winning = [[], [], [], [], [], [], [], [] ,[] ,[]];
         $scope.new_game = true;
+        $scope.chance = true;
     };
 
     $scope.player_goes_first = function() {
         $scope.new_game = false;
+        $scope.chance = false;
     };
+
 
     $scope.computer_goes_first = function() {
         $scope.new_game = false;
         $scope.loading = true;
+        $scope.chance = true;
 
-        $http.post('/move', { player: 'X', computer: 'O', board: $scope.board }).then(function(response) {
+        $http.post('/move', { player: 'X', computer: 'O', board: $scope.board, chance: $scope.chance }).then(function(response) {
             $scope.loading = false;
 
             if (response.data.hasOwnProperty('computer_row') && response.data.hasOwnProperty('computer_col')) {
