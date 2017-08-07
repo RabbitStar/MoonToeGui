@@ -144,7 +144,11 @@ class Agent(object):
             key = (c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)],c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)])
         else:
             key = (c[(0,1,4)],c[(0,2,3)],c[(0,3,2)],c[(0,4,1)],c[(0,5,0)], c[(1,0,4)],c[(2,0,3)],c[(3,0,2)],c[(4,0,1)],c[(5,0,0)])
+<<<<<<< HEAD
         return math.log(key[0]+1)+math.sqrt(key[1])+key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+math.sqrt(key[6])+3*key[7]+(5*key[8])**2)
+=======
+        return math.log(key[0]+1)+3*math.sqrt(key[1])+2*key[2]+(2*key[3])**2+((5*key[4])**3)-(math.log(key[5]+1)+3*math.sqrt(key[6])+4*key[7]+(5*key[8])**2)
+>>>>>>> 81a92fd6bed320f28d3fd535cedd0cfd5fe8a02e
 
     def random_greedy(self,state):
         maxval = -999999999
@@ -321,14 +325,5 @@ if __name__ == '__main__':
     '''
 
     while True:
-        a3 = Human(1)
-        a4 = Human(-1)
-        x = raw_input('press 1 for 1st chance otherwise 2')
-        if int(x) == 1:
-            winner = play(a3, a2)
-            a3.episode_over(winner)
-            a2.episode_over(winner)
-        else:
-            winner = play(a1, a4)
-            a1.episode_over(winner)
-            a4.episode_over(winner)
+        a2 = Human(-1)
+        winner = play(a1, a2)
